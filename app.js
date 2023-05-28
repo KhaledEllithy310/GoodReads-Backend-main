@@ -30,32 +30,19 @@ app.post("/welcome", auth, (req, res) => {
 /**********************************************************************/
 mongoose.set("strictQuery", false);
 //CONNECT WITH DATA BASE
-// mongoose.connect(
-//   "mongodb://127.0.0.1:27017/readApp",
-//   { useNewUrlParser: true, useUnifiedTopology: true },
-//   (err) => {
-//     if (!err) {
-//       console.log("DB Is Connected  Successfully :)");
-//     } else {
-//       console.log("DB Failed To connect ):");
-//     }
-//   }
-// );
-
-mongoose
-  .connect(
-    "mongodb+srv://khaled-Ellithy:meanstack@cluster0.xopyoua.mongodb.net/GoodReads?retryWrites=true&w=majority"
-  )
-  .then((result) => {
-    app.listen(port, () => {
-      console.log(`Example app listening at http://localhost:${port}`);
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+mongoose.connect(
+  "mongodb://127.0.0.1:27017/readApp",
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  (err) => {
+    if (!err) {
+      console.log("DB Is Connected  Successfully :)");
+    } else {
+      console.log("DB Failed To connect ):");
+    }
+  }
+);
 
 /**********************************************************************/
-// app.listen(port, (err) => {
-//   if (!err) console.log(`App is working on port ${port}`);
-// });
+app.listen(port, (err) => {
+  if (!err) console.log(`App is working on port ${port}`);
+});
