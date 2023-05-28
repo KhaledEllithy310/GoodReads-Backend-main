@@ -15,6 +15,8 @@ const port = 8080;
 app.use(cors());
 app.use(express.json());
 /**********************************************************************/
+//routes-books
+const bookRoute = require('./routes/books')
 //ROUTES
 app.use("/users", usersRoutes);
 app.use("/register", registerRoute);
@@ -27,6 +29,7 @@ app.use("/author", authorRouter);
 app.post("/welcome", auth, (req, res) => {
   res.status(200).send("Welcome 🙌");
 });
+app.use('/books',bookRoute)
 /**********************************************************************/
 mongoose.set("strictQuery", false);
 //CONNECT WITH DATA BASE

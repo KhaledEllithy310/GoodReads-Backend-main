@@ -53,7 +53,7 @@ const book = new bookModel({
 
 })
 if(req.file){
- book.image = req.file.path
+ book.avatar = req.file.path
 }
 book.save()
 .then(response =>{
