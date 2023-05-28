@@ -8,6 +8,7 @@ const userBooksRoutes = require("./routes/userBooks");
 const registerRoute = require("./routes/register");
 const loginRoute = require("./routes/login");
 const reviewsRoute = require("./routes/reviews");
+const ratesRoute = require("./routes/rates")
 //CATECORY AND AUTHOR ROUTES
 const categoryRouter = require("./routes/category");
 const authorRouter = require("./routes/author");
@@ -26,10 +27,13 @@ app.use("/reviews", reviewsRoute);
 app.use(express.static("assets")); //show images in chrome
 app.use("/category", categoryRouter);
 app.use("/author", authorRouter);
+app.use('/books',bookRoute)
+app.use("/rates",ratesRoute)
+
 app.post("/welcome", auth, (req, res) => {
   res.status(200).send("Welcome 🙌");
 });
-app.use('/books',bookRoute)
+
 /**********************************************************************/
 mongoose.set("strictQuery", false);
 //CONNECT WITH DATA BASE

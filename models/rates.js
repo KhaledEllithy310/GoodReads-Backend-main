@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const reviewsSchema = new mongoose.Schema({
+const ratesSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "users",
@@ -11,11 +11,11 @@ const reviewsSchema = new mongoose.Schema({
     ref: "books",
     required: true,
   },
-  review: {
-    type: String,
+  rate: {
+    type: Number,
   },
 });
 
-const reviewsModel = mongoose.model("reviews", reviewsSchema);
+const ratesModel = mongoose.model("rates", ratesSchema);
 
-module.exports = reviewsModel;
+module.exports = ratesModel;

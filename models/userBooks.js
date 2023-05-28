@@ -7,8 +7,8 @@ const userBooksSchema = new mongoose.Schema({
   },
   bookId: {
     type: String,
-    // type: mongoose.Schema.Types.ObjectId,
-    // ref: "books",
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "books",
     required: true,
   },
   status: {
