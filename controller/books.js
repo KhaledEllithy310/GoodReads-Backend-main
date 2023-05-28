@@ -1,13 +1,13 @@
-const { response } = require("express");
-const express = require("express")
-const router= express.Router()
-const bookModel = require("../models/books");
+// const { response } = require("express");
+// const express = require("express")
+// const router= express.Router()
+const booksModel = require("../models/books");
 
 
 
 //show list of book 
  const index = (req,res,next)=>{
-    bookModel.find()
+    booksModel.find()
     .populate("categoryId")
     .populate("authorId")
     .then(response =>{
@@ -17,15 +17,15 @@ const bookModel = require("../models/books");
     })
     .catch(error =>{
         res.json({
-            message: 'an error occured!'
+            message: 'an error occurred!'
         })
     })
  }
 //show single book
  const show = (req,res,next) =>{
-     let bookId = req.body.bookId
+    const { id } = req.params;
     // const {id} = id.params
-    bookModel.findById(bookId)
+    booksModel.findById(id)
     .populate("categoryId")
     .populate("authorId")
     .then(response =>{
@@ -35,7 +35,7 @@ const bookModel = require("../models/books");
     })
     .catch(error =>{
         res.json({
-            message: "an error occured!"
+            message: "an error occurred!"
         })
     })
  }
@@ -43,14 +43,12 @@ const bookModel = require("../models/books");
 
 //add new book 
  const store = (req,res,next)=>{
-const book = new bookModel({
+const book = new booksModel({
             
     title :req.body.title,
     description : req.body.description,
     categoryId : req.body.categoryId,
     authorId : req.body.authorId
-
-
 })
 if(req.file){
  book.avatar = req.file.path
@@ -63,7 +61,7 @@ book.save()
 })
 .catch(error =>{
     res.json({
-        message: 'an error iccured'
+        message: 'an error accrued'
     })
 })
  }
@@ -74,7 +72,7 @@ book.save()
   function update(req, res) {
     const { id } = req.params;
     const updatedFields = req.body; // an object containing the updated values
-    bookModel.findOne({ _id: id }, (err, book) => {
+    booksModel.findOne({ _id: id }, (err, book) => {
       if (err) {
         return res.status(500).json({ Error: "DB_ERR" });
       }
@@ -111,7 +109,7 @@ book.save()
  //delete an book 
  const  destroy = (req,res,next)=>{
     let bookId = req.body.bookId
-    bookModel.findByIdAndRemove(bookId)
+    booksModel.findByIdAndRemove(bookId)
     .then(()=>{
         res.json({
             message: 'book deleted successfully!'
@@ -119,7 +117,7 @@ book.save()
     })
     .catch(error =>{
         res.json({
-            message: 'an error occured!'
+            message: 'an error occurred!'
         })
     })
  }

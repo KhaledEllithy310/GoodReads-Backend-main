@@ -22,7 +22,6 @@ const usersSchema = new mongoose.Schema({
     //false = user , true = admin
     type: Boolean,
     default: false,
-    required: true,
   },
   avatar:{
     type: String,

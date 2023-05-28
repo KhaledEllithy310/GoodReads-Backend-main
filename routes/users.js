@@ -1,14 +1,14 @@
 const express = require("express");
 const UsersModel = require("../models/users");
 const router = express.Router();
-const upload = require("../middleware/uploads")
+const upload = require("../middleware/uploads");
 
 //Add new user
-router.post("/", upload, (req, res) => {
-  const { firstName, lastName, password, email } = req.body;
+router.post("/", upload("assets/users_up"), (req, res) => {
+  const { firstName, lastName, password, email,role } = req.body;
   const { file } = req;
   UsersModel.create(
-    { firstName, lastName, password, email, avatar: file.path || null },
+    { firstName, lastName, password, email,role ,avatar: file.path || null },
     (err, userData) => {
       if (!err) return res.status(200).json(userData);
       return res.status(500).json({ Error: "DB_ERR" });
@@ -34,7 +34,7 @@ router.get("/:id", (req, res) => {
 });
 
 //update a user by id
-router.put("/:id",upload, (req, res) => {
+router.put("/:id",upload("assets/users_up"), (req, res) => {
   const { id } = req.params;
   UsersModel.findByIdAndUpdate(
     id,
