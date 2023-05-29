@@ -23,9 +23,9 @@ const booksModel = require("../models/books");
  }
 //show single book
  const show = (req,res,next) =>{
-    const { id } = req.params;
+    const { val } = req.params;
     // const {id} = id.params
-    booksModel.findById(id)
+    booksModel.find(val)
     .populate("categoryId")
     .populate("authorId")
     .then(response =>{

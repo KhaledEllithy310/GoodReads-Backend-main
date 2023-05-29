@@ -4,7 +4,7 @@ const User = require("../models/users");
 const upload = require("../middleware/uploads");
 const router = express.Router();
 
-router.post("/", upload("../assets/users_up"), async (req, res) => {
+router.post("/", upload("assets/users_up"), async (req, res) => {
   // Our register logic starts here
   try {
     // Get user input
