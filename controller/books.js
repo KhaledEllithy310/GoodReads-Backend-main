@@ -25,7 +25,7 @@ const booksModel = require("../models/books");
  const show = (req,res,next) =>{
     const { val } = req.params;
     // const {id} = id.params
-    booksModel.find(val)
+    booksModel.findOne(val)
     .populate("categoryId")
     .populate("authorId")
     .then(response =>{
@@ -121,6 +121,26 @@ book.save()
         })
     })
  }
+
+ //search books
+ const search = (req, res, next) => {
+    const { val } = req.params;
+    booksModel.find({ title: { $regex: `.*${val}.*`, $options: "i" } }, (err, data) => {
+      if (!err) return res.json(data);
+      return res.status(500).json({ Error: "DB_ERR" });
+    })
+  }
+
+
+
  module.exports ={
-    index, show, store, update , destroy
+    index, show, store, update , destroy,search
  }
+
+
+
+
+
+
+
+

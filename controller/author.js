@@ -31,7 +31,7 @@ function getAll(req, res) {
 //DISPLAY AUTHOR BY ID FROM DATABASE
 function getById(req, res) {
   const id = req.params.id;
-  authorModel.findOne({ _id: id }, req.body, (err, author) => {
+  authorModel.findOne({ id }, req.body, (err, author) => {
     if (!err) return res.status(200).json(author);
     res.status(500).json({ Error: "DB_ERR" });
   });
@@ -68,10 +68,26 @@ function updateById(req, res) {
   });
 }
 
+ //search books
+ const search = (req, res, next) => {
+  const { val } = req.params;
+  authorModel.find({
+    $or: [
+      { first_name: { $regex: `.*${val}.*`, $options: "i" } },
+      { last_name: { $regex: `.*${val}.*`, $options: "i" } }
+    ]
+  }, (err, data) => {
+    if (!err) return res.json(data);
+    return res.status(500).json({ Error: "DB_ERR" });
+  });
+};
+
+
 module.exports = {
   create,
   getAll,
   deleteById,
   getById,
   updateById,
+  search
 };
