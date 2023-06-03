@@ -6,7 +6,8 @@ const authorSchema = new Schema({
   first_name: { type: String, required: true },
   last_name: { type: String, required: true },
   dateOfBirth: { type: String, required: true },
-  avatar: { type: String },
+  aboutAuthor:{type: String},
+  avatar: { type: String},
 });
 
 //CREATE MODEL BASED ON SCHEMA

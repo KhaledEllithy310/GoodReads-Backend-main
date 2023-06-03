@@ -16,8 +16,13 @@ router.get("/:userId", (req, res) => {
   UserBooksModel.find({ userId }, (err, data) => {
     if (!err) return res.json(data);
     return res.status(500).json({ Error: "DB_ERR" });
-  }).populate("userId");
+  })
+    .populate("userId")
+    .populate("bookId")
+    .populate("authorId");
 });
+
+//Get a a user books by
 
 //update a user books
 router.put("/:id", (req, res) => {
@@ -26,6 +31,7 @@ router.put("/:id", (req, res) => {
     id,
     {
       status: req.body.status,
+      rate: req.body.rate,
     },
     (err, data) => {
       if (!err) return res.status(200).json(data);

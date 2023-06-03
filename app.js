@@ -27,12 +27,12 @@ app.use("/userbooks", userBooksRoutes);
 app.use("/reviews", reviewsRoute);
 app.use(express.static('assets')); //show images in chrome
 app.use("/category", categoryRouter);
-app.use("/author", authorRouter);
+app.use("/authors", authorRouter);
 app.use('/books',bookRoute)
 app.use("/rates",ratesRoute)
 
 app.post("/welcome", auth, (req, res) => {
-  res.status(200).send("Welcome 🙌");
+  res.status(200).send(true);
 });
 
 /**********************************************************************/

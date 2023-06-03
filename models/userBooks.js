@@ -6,15 +6,22 @@ const userBooksSchema = new mongoose.Schema({
     required: true,
   },
   bookId: {
-    type: String,
     type: mongoose.Schema.Types.ObjectId,
     ref: "books",
+    required: true,
+  },
+  authorId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "authors",
     required: true,
   },
   status: {
     type: String,
     enum: ["reading", "want to read", "readed"],
   },
+  rate:{
+    type: Number,
+  }
 });
 
 const UserBooksModel = mongoose.model("usersBooks", userBooksSchema);

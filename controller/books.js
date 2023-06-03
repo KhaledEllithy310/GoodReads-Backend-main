@@ -23,9 +23,9 @@ const booksModel = require("../models/books");
  }
 //show single book
  const show = (req,res,next) =>{
-    const { id } = req.params;
+    const { val } = req.params;
     // const {id} = id.params
-    booksModel.findById(id)
+    booksModel.findOne(val)
     .populate("categoryId")
     .populate("authorId")
     .then(response =>{
@@ -71,22 +71,44 @@ book.save()
 
   function update(req, res) {
     const { id } = req.params;
-    const updatedFields = req.body; // an object containing the updated values
-    booksModel.findOne({ _id: id }, (err, book) => {
-      if (err) {
+//     const updatedFields = req.body; // an object containing the updated values
+//     booksModel.findOne({ _id: id }, (err, book) => {
+//       if (err) {
+//         return res.status(500).json({ Error: "DB_ERR" });
+//       }
+//       if (!book) {
+//         return res.status(404).json({ Error: "Book_NOT_FOUND" });
+//       }
+//       // update the author object with the new values
+//       Object.assign(book, updatedFields);
+//     book.save((err, updatedBook) => {
+//       if (err) {
+//         return res.status(500).json({ Error: "DB_ERR" });
+//       }
+//       res.status(200).json(updatedBook);
+//     });
+//   });
+booksModel.findById(id, (err, oldUser) => {
+    let updatedAvatar;
+    if (req.file!=null) {
+      updatedAvatar = req.file.path;
+    } else {
+      updatedAvatar = oldUser.avatar;
+    }
+    booksModel.findByIdAndUpdate(
+      id,
+      {
+        title: req.body.title_updated,
+        description: req.body.description_updated,
+        categoryId: req.body.categoryId_updated,
+        authorId: req.body.authorId_updated,
+        avatar: updatedAvatar || null
+      },
+      (err, data) => {
+        if (!err) return res.status(200).json(data);
         return res.status(500).json({ Error: "DB_ERR" });
       }
-      if (!book) {
-        return res.status(404).json({ Error: "Book_NOT_FOUND" });
-      }
-      // update the author object with the new values
-      Object.assign(book, updatedFields);
-    book.save((err, updatedBook) => {
-      if (err) {
-        return res.status(500).json({ Error: "DB_ERR" });
-      }
-      res.status(200).json(updatedBook);
-    });
+    );
   });
 }
 
@@ -121,6 +143,26 @@ book.save()
         })
     })
  }
+
+ //search books
+ const search = (req, res, next) => {
+    const { val } = req.params;
+    booksModel.find({ title: { $regex: `.*${val}.*`, $options: "i" } }, (err, data) => {
+      if (!err) return res.json(data);
+      return res.status(500).json({ Error: "DB_ERR" });
+    })
+  }
+
+
+
  module.exports ={
-    index, show, store, update , destroy
+    index, show, store, update , destroy,search
  }
+
+
+
+
+
+
+
+
