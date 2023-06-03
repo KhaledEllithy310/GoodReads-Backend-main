@@ -16,7 +16,7 @@ router.get("/:bookId", (req, res) => {
   ReviewsModel.find({ bookId }, (err, data) => {
     if (!err) return res.json(data);
     return res.status(500).json({ Error: "DB_ERR" });
-  }).populate("bookId");
+  }).populate("bookId").populate("userId");
 });
 
 //update a user review

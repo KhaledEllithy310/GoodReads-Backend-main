@@ -50,23 +50,6 @@ function deleteById(req, res) {
 let oldUser;
 function updateById(req, res) {
   const { id } = req.params;
-  // const updatedFields = req.body; // an object containing the updated values
-  // authorModel.findOne({ id }, (err, author) => {
-  //   if (err) {
-  //     return res.status(500).json({ Error: "DB_ERR" });
-  //   }
-  //   if (!author) {
-  //     return res.status(404).json({ Error: "AUTHOR_NOT_FOUND" });
-  //   }
-  //   // update the author object with the new values
-  //   Object.assign(author, updatedFields);
-  //   author.save((err, updatedAuthor) => {
-  //     if (err) {
-  //       return res.status(500).json({ Error: "DB_ERR" });
-  //     }
-  //     res.status(200).json(updatedAuthor);
-  //   });
-  // });
   authorModel.findById(id, (err, oldUser) => {
     let updatedAvatar;
     if (req.file!=null) {

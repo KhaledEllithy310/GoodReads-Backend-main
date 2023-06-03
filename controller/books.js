@@ -23,9 +23,8 @@ const booksModel = require("../models/books");
  }
 //show single book
  const show = (req,res,next) =>{
-    const { val } = req.params;
-    // const {id} = id.params
-    booksModel.findOne(val)
+    const {id} = req.params;
+    booksModel.findById(id)
     .populate("categoryId")
     .populate("authorId")
     .then(response =>{
@@ -71,23 +70,6 @@ book.save()
 
   function update(req, res) {
     const { id } = req.params;
-//     const updatedFields = req.body; // an object containing the updated values
-//     booksModel.findOne({ _id: id }, (err, book) => {
-//       if (err) {
-//         return res.status(500).json({ Error: "DB_ERR" });
-//       }
-//       if (!book) {
-//         return res.status(404).json({ Error: "Book_NOT_FOUND" });
-//       }
-//       // update the author object with the new values
-//       Object.assign(book, updatedFields);
-//     book.save((err, updatedBook) => {
-//       if (err) {
-//         return res.status(500).json({ Error: "DB_ERR" });
-//       }
-//       res.status(200).json(updatedBook);
-//     });
-//   });
 booksModel.findById(id, (err, oldUser) => {
     let updatedAvatar;
     if (req.file!=null) {
