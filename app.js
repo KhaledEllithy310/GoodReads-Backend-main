@@ -31,7 +31,7 @@ app.use('/books',bookRoute)
 app.use("/rates",ratesRoute)
 
 app.post("/welcome", auth, (req, res) => {
-  res.status(200).send("Welcome 🙌");
+  res.status(200).send(true);
 });
 
 /**********************************************************************/

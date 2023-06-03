@@ -38,10 +38,8 @@ router.get("/:id", (req, res) => {
 let oldUser;
 router.put("/:id", upload("assets/users_up"), async (req, res) => {
   const { id } = req.params;
-  console.log(req.body);
   //Encrypt user password
   encryptedPassword = await bcrypt.hash(req.body.password, 10);
-  console.log(encryptedPassword);
 
   UsersModel.findById(id, (err, oldUser) => {
     let updatedAvatar;

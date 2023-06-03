@@ -47,24 +47,47 @@ function deleteById(req, res) {
 }
 
 //UPDATE DATA OF AUTHOR BY ID
+let oldUser;
 function updateById(req, res) {
   const { id } = req.params;
-  const updatedFields = req.body; // an object containing the updated values
-  authorModel.findOne({ _id: id }, (err, author) => {
-    if (err) {
-      return res.status(500).json({ Error: "DB_ERR" });
+  // const updatedFields = req.body; // an object containing the updated values
+  // authorModel.findOne({ id }, (err, author) => {
+  //   if (err) {
+  //     return res.status(500).json({ Error: "DB_ERR" });
+  //   }
+  //   if (!author) {
+  //     return res.status(404).json({ Error: "AUTHOR_NOT_FOUND" });
+  //   }
+  //   // update the author object with the new values
+  //   Object.assign(author, updatedFields);
+  //   author.save((err, updatedAuthor) => {
+  //     if (err) {
+  //       return res.status(500).json({ Error: "DB_ERR" });
+  //     }
+  //     res.status(200).json(updatedAuthor);
+  //   });
+  // });
+  authorModel.findById(id, (err, oldUser) => {
+    let updatedAvatar;
+    if (req.file!=null) {
+      updatedAvatar = req.file.path;
+    } else {
+      updatedAvatar = oldUser.avatar;
     }
-    if (!author) {
-      return res.status(404).json({ Error: "AUTHOR_NOT_FOUND" });
-    }
-    // update the author object with the new values
-    Object.assign(author, updatedFields);
-    author.save((err, updatedAuthor) => {
-      if (err) {
+    authorModel.findByIdAndUpdate(
+      id,
+      {
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        dateOfBirth: req.body.dateOfBirth,
+        aboutAuthor: req.body.aboutAuthor,
+        avatar: updatedAvatar || null
+      },
+      (err, data) => {
+        if (!err) return res.status(200).json(data);
         return res.status(500).json({ Error: "DB_ERR" });
       }
-      res.status(200).json(updatedAuthor);
-    });
+    );
   });
 }
 
