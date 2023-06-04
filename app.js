@@ -37,6 +37,9 @@ app.post("/welcome", auth, (req, res) => {
 /**********************************************************************/
 mongoose.set("strictQuery", false);
 //CONNECT WITH DATA BASE
+
+
+
 mongoose.connect(
   "mongodb://127.0.0.1:27017/readApp",
   { useNewUrlParser: true, useUnifiedTopology: true },
