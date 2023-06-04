@@ -38,7 +38,7 @@ app.post("/welcome", auth, (req, res) => {
 mongoose.set("strictQuery", false);
 //CONNECT WITH DATA BASE
 mongoose.connect(
-  "mongodb+srv://khaled-Ellithy:meanstack@cluster0.xopyoua.mongodb.net/GoodReads?retryWrites=true&w=majority",
+  "mongodb://127.0.0.1:27017/readApp",
   { useNewUrlParser: true, useUnifiedTopology: true },
   (err) => {
     if (!err) {
