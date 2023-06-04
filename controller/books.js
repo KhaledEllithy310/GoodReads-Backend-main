@@ -20,12 +20,12 @@ const index = (req, res, next) => {
       });
     });
 };
+
 //show single book
 const show = (req, res, next) => {
-  const { val } = req.params;
-  // const {id} = id.params
+  const { id } = req.params;
   booksModel
-    .findOne(val)
+    .findById(id)
     .populate("categoryId")
     .populate("authorId")
     .then((response) => {
@@ -69,23 +69,6 @@ const store = (req, res, next) => {
 
 function update(req, res) {
   const { id } = req.params;
-  //     const updatedFields = req.body; // an object containing the updated values
-  //     booksModel.findOne({ _id: id }, (err, book) => {
-  //       if (err) {
-  //         return res.status(500).json({ Error: "DB_ERR" });
-  //       }
-  //       if (!book) {
-  //         return res.status(404).json({ Error: "Book_NOT_FOUND" });
-  //       }
-  //       // update the author object with the new values
-  //       Object.assign(book, updatedFields);
-  //     book.save((err, updatedBook) => {
-  //       if (err) {
-  //         return res.status(500).json({ Error: "DB_ERR" });
-  //       }
-  //       res.status(200).json(updatedBook);
-  //     });
-  //   });
   booksModel.findById(id, (err, oldUser) => {
     let updatedAvatar;
     if (req.file != null) {
@@ -157,6 +140,24 @@ function getBooksByCategory(req, res) {
       });
     });
 }
+
+function getBooksByAuthor(req, res) {
+  const id = req.params.id;
+  booksModel
+    .find({ authorId: id })
+    .then((response) => {
+      res.json({
+        response,
+      });
+    })
+    .catch((error) => {
+      res.json({
+        message: "An error occurred while retrieving books by category.",
+        error: error,
+      });
+    });
+}
+
 module.exports = {
   index,
   show,
@@ -165,4 +166,5 @@ module.exports = {
   destroy,
   search,
   getBooksByCategory,
+  getBooksByAuthor,
 };

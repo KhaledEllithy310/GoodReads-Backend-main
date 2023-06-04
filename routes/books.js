@@ -14,4 +14,5 @@ router.post("/delete", bookController.destroy);
 router.post("/store", upload("assets/books_up"), bookController.store);
 router.get("/:val", bookController.search);
 router.get("/category/:id", bookController.getBooksByCategory);
+router.get("/author/:id", bookController.getBooksByAuthor);
 module.exports = router;

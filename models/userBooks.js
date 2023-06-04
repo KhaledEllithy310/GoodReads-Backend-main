@@ -17,10 +17,15 @@ const userBooksSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["reading", "want to read", "readed"],
+    default:"want to read"
   },
-  rate:{
-    type: Number,
+  review: {
+    type: String,
+    default:''
+  },
+  rate :{
+    type: Number ,
+    default:0
   }
 });
 
