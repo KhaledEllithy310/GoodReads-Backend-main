@@ -13,7 +13,7 @@ router.post("/", (req, res) => {
 //Get a book rate by book id
 router.get("/:bookId/:userId", (req, res) => {
     const { bookId, userId } = req.params;
-    RatesModel.find({ bookId, userId }, (err, data) => {
+    RatesModel.findOne({ bookId, userId }, (err, data) => {
       if (!err) return res.json(data);
       return res.status(500).json({ Error: "DB_ERR" });
     }).populate("userId");

@@ -17,7 +17,6 @@ router.post("/", upload("assets/users_up"), async (req, res) => {
 
     // check if user already exist
     // Validate if user exist in our database
-    // const _email = email.toLowerCase();
     const oldUser = await User.findOne({ email });
 
     if (oldUser) {
@@ -31,7 +30,7 @@ router.post("/", upload("assets/users_up"), async (req, res) => {
     const user = await User.create({
       firstName,
       lastName,
-      email: email.toLowerCase(), // sanitize: convert email to lowercase
+      email: email.toLowerCase(), //convert email to lowercase
       password: encryptedPassword,
       avatar: file.path || null,
     });

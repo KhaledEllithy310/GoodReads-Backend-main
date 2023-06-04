@@ -13,7 +13,12 @@ const reviewsSchema = new mongoose.Schema({
   },
   review: {
     type: String,
+
   },
+  rate :{
+    type: Number ,
+    default:0
+  }
 });
 
 const reviewsModel = mongoose.model("reviews", reviewsSchema);
