@@ -18,8 +18,8 @@ router.get("/:userId", (req, res) => {
     return res.status(500).json({ Error: "DB_ERR" });
   })
     .populate("userId")
-    .populate("bookId");
-  // .populate("authorId");
+    .populate("bookId")
+  .populate("authorId");
 });
 
 //Get a a user book
